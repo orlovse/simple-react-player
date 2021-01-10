@@ -12,8 +12,8 @@ import { formatTime } from "../../utils";
 const Player = ({ currentSong }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [songInfo, setSongInfo] = useState({
-    currentTime: null,
-    duration: null,
+    currentTime: 0,
+    duration: 0,
   });
 
   const songRef = useRef(null);
@@ -29,17 +29,30 @@ const Player = ({ currentSong }) => {
   };
 
   const timeUpdateHanler = (event) => {
-    const currentTime = formatTime(event.target.currentTime);
-    const duration = formatTime(event.target.duration);
-    setSongInfo({ ...songInfo, currentTime, duration });
+    const formatedCurrentTime = formatTime(event.target.currentTime);
+    const formatedDuration = formatTime(event.target.duration);
+    const currentTime = event.target.currentTime;
+    const duration = event.target.duration;
+    setSongInfo({
+      ...songInfo,
+      currentTime,
+      duration,
+      formatedCurrentTime,
+      formatedDuration,
+    });
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.timecontrol}>
-        <p>{songInfo.currentTime}</p>
-        <input type="range" />
-        <p>{songInfo.duration}</p>
+        <p>{songInfo.formatedCurrentTime}</p>
+        <input
+          type="range"
+          min={0}
+          max={songInfo.duration}
+          value={songInfo.currentTime}
+        />
+        <p>{songInfo.formatedDuration}</p>
       </div>
       <div className={styles.playcontrol}>
         <FontAwesomeIcon icon={faAngleLeft} size="2x" />
