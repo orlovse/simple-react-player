@@ -4,8 +4,8 @@ import Song from "./components/song";
 function App() {
   return (
     <div className="App">
-      <Player />
       <Song />
+      <Player />
     </div>
   );
 }
