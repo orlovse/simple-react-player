@@ -16,7 +16,6 @@ Song.propTypes = {
     name: PropTypes.string,
     cover: PropTypes.string,
     artist: PropTypes.string,
-    audio: PropTypes.string,
     color: PropTypes.array,
     active: PropTypes.bool,
   }).isRequired,
