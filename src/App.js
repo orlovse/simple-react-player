@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Player from "./components/player";
 import Song from "./components/song";
+import Library from "./components/library";
 
 function App({ playlist }) {
   const [currentSong, setCurrentSong] = useState(playlist[0]);
@@ -11,6 +12,7 @@ function App({ playlist }) {
     <div className="App">
       <Song currentSong={currentSong} />
       <Player currentSong={currentSong} />
+      <Library songs={playlist} setCurrentSong={setCurrentSong} />
     </div>
   );
 }
