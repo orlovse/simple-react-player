@@ -4,11 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import getPlaylist from "./data";
-
 ReactDOM.render(
   <React.StrictMode>
-    <App playlist={getPlaylist()} />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

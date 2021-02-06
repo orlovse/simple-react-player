@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,18 +8,15 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./player.module.scss";
-import { formatTime } from "../../utils";
 
-const Player = ({ currentSong }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [songInfo, setSongInfo] = useState({
-    currentTime: 0,
-    duration: 0,
-  });
-
+const Player = ({
+  songRef,
+  songInfo,
+  setSongInfo,
+  isPlaying,
+  setIsPlaying,
+}) => {
   useEffect(() => {}, []);
-
-  const songRef = useRef(null);
 
   const playSongHandler = () => {
     if (isPlaying) {
@@ -29,20 +26,6 @@ const Player = ({ currentSong }) => {
       songRef.current.play();
       setIsPlaying(!isPlaying);
     }
-  };
-
-  const timeUpdateHanler = (event) => {
-    const formatedCurrentTime = formatTime(event.target.currentTime);
-    const formatedDuration = formatTime(event.target.duration);
-    const currentTime = event.target.currentTime;
-    const duration = event.target.duration;
-    setSongInfo({
-      ...songInfo,
-      currentTime,
-      duration,
-      formatedCurrentTime,
-      formatedDuration,
-    });
   };
 
   const dragHandler = (event) => {
@@ -72,20 +55,14 @@ const Player = ({ currentSong }) => {
         />
         <FontAwesomeIcon icon={faAngleRight} size="2x" />
       </div>
-      <audio
-        onLoadedMetadata={timeUpdateHanler}
-        onTimeUpdate={timeUpdateHanler}
-        ref={songRef}
-        src={currentSong.audio}
-      ></audio>
     </div>
   );
 };
 
 Player.propTypes = {
-  currentSong: PropTypes.shape({
-    audio: PropTypes.string,
-  }).isRequired,
+  // currentSong: PropTypes.shape({
+  //   audio: PropTypes.string,
+  // }).isRequired,
 };
 
 export default Player;
