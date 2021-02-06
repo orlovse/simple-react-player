@@ -14,6 +14,7 @@ function App() {
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animationPercentage: 0,
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
@@ -22,12 +23,14 @@ function App() {
     const formatedDuration = formatTime(event.target.duration);
     const currentTime = event.target.currentTime;
     const duration = event.target.duration;
+    const animationPercentage = Math.round((currentTime / duration) * 100);
     setSongInfo({
       ...songInfo,
       currentTime,
       duration,
       formatedCurrentTime,
       formatedDuration,
+      animationPercentage,
     });
   };
 
@@ -44,6 +47,7 @@ function App() {
         setIsPlaying={setIsPlaying}
         songs={playlist}
         setCurrentSong={setCurrentSong}
+        setPlaylist={setPlaylist}
       />
       <Library
         songRef={songRef}

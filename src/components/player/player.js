@@ -8,6 +8,7 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./player.module.scss";
+import { playAudio } from "../../utils";
 
 const Player = ({
   songRef,
@@ -18,8 +19,24 @@ const Player = ({
   songs,
   setCurrentSong,
   currentSong,
+  setPlaylist,
 }) => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const newSongs = songs.map((item) => {
+      if (item.id === currentSong.id) {
+        return {
+          ...item,
+          active: true,
+        };
+      } else {
+        return {
+          ...item,
+          active: false,
+        };
+      }
+    });
+    setPlaylist(newSongs);
+  }, [currentSong]);
 
   const playSongHandler = () => {
     if (isPlaying) {
@@ -44,6 +61,8 @@ const Player = ({
     if (type === "skip-forward") {
       setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     }
+
+    playAudio(isPlaying, songRef);
   };
 
   const dragHandler = (event) => {
@@ -51,18 +70,29 @@ const Player = ({
     setSongInfo({ ...songInfo, currentTime: event.target.value });
   };
 
+  const trackStyle = {
+    transform: `translateX(${songInfo.animationPercentage}%)`,
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.timecontrol}>
         <p>{songInfo.formatedCurrentTime}</p>
-        <input
-          type="range"
-          min={0}
-          max={songInfo.duration || 0}
-          value={songInfo.currentTime}
-          onChange={dragHandler}
-        />
-        <p>{songInfo.formatedDuration}</p>
+        <div className={styles.track}>
+          <input
+            style={{
+              background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})`,
+            }}
+            type="range"
+            min={0}
+            max={songInfo.duration || 0}
+            value={songInfo.currentTime}
+            onChange={dragHandler}
+          />
+          <div style={trackStyle} className={styles.animateTrack}></div>
+        </div>
+
+        <p>{songInfo.duration ? songInfo.formatedDuration : "0:00"}</p>
       </div>
       <div className={styles.playcontrol}>
         <FontAwesomeIcon

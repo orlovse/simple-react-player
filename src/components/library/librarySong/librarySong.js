@@ -1,4 +1,5 @@
 import styles from "../library.module.scss";
+import { playAudio } from "../../../utils";
 const LibrarySong = ({
   song,
   songs,
@@ -22,16 +23,9 @@ const LibrarySong = ({
         };
       }
     });
-
     setPlaylist(newSongs);
-    if (isPlaying) {
-      const playPromise = songRef.current.play();
-      if (playPromise) {
-        playPromise.then((audio) => {
-          songRef.current.play();
-        });
-      }
-    }
+
+    playAudio(isPlaying, songRef);
   };
   return (
     <div
