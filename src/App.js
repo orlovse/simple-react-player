@@ -6,6 +6,7 @@ import Song from "./components/song";
 import Library from "./components/library";
 import { formatTime } from "./utils.js";
 import getPlaylist from "./data";
+import Nav from "./components/nav";
 function App() {
   const [playlist, setPlaylist] = useState(getPlaylist());
   const [currentSong, setCurrentSong] = useState(playlist[0]);
@@ -15,6 +16,7 @@ function App() {
     duration: 0,
   });
   const [isPlaying, setIsPlaying] = useState(false);
+  const [libraryStatus, setLibraryStatus] = useState(false);
   const timeUpdateHanler = (event) => {
     const formatedCurrentTime = formatTime(event.target.currentTime);
     const formatedDuration = formatTime(event.target.duration);
@@ -31,6 +33,7 @@ function App() {
 
   return (
     <div className="App">
+      <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
         songRef={songRef}
@@ -46,6 +49,7 @@ function App() {
         setCurrentSong={setCurrentSong}
         isPlaying={isPlaying}
         setPlaylist={setPlaylist}
+        libraryStatus={libraryStatus}
       />
       <audio
         onLoadedMetadata={timeUpdateHanler}

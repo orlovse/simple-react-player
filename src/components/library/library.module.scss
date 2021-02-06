@@ -4,13 +4,20 @@
   left: 0;
   width: 20rem;
   height: 100%;
-
   box-shadow: 2px 2px 50px rgb(177, 176, 176);
   overflow: scroll;
+  transform: translateX(-100%);
+  transition: all .5s ease;
+  opacity: 0;
 
   h2 {
     padding: 2rem;
   }
+}
+
+.active {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .librarySong {

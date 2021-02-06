@@ -7,9 +7,10 @@ const Library = ({
   songRef,
   isPlaying,
   setPlaylist,
+  libraryStatus,
 }) => {
   return (
-    <div className={styles.library}>
+    <div className={`${styles.library} ${libraryStatus ? styles.active : ""}`}>
       <h2>Library</h2>
       <div>
         {songs.map((song) => (
