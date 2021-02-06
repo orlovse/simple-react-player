@@ -1,5 +1,5 @@
 import styles from "../library.module.scss";
-import { playAudio } from "../../../utils";
+
 const LibrarySong = ({
   song,
   songs,
@@ -8,8 +8,8 @@ const LibrarySong = ({
   isPlaying,
   setPlaylist,
 }) => {
-  const songSelectHandler = () => {
-    setCurrentSong(song);
+  const songSelectHandler = async () => {
+    await setCurrentSong(song);
     const newSongs = songs.map((item) => {
       if (item.id === song.id) {
         return {
@@ -24,8 +24,7 @@ const LibrarySong = ({
       }
     });
     setPlaylist(newSongs);
-
-    playAudio(isPlaying, songRef);
+    if (isPlaying) songRef.current.play();
   };
   return (
     <div

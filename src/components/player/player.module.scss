@@ -49,14 +49,10 @@
     }
   }
 
-
-
   p {
     padding: 1rem;
   }
 }
-
-
 
 .playcontrol {
   width: 40%;
@@ -67,5 +63,15 @@
 
   svg {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .timecontrol {
+    width: 90%;
+  }
+
+  .playcontrol {
+    width: 60%;
   }
 }

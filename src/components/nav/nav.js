@@ -8,7 +8,7 @@ const Nav = ({ setLibraryStatus, libraryStatus }) => {
   };
   return (
     <div className={styles.nav}>
-      <h1>Waves</h1>
+      <h1>Music App</h1>
       <button onClick={handleClick}>
         Library
         <FontAwesomeIcon icon={faMusic} />

@@ -34,8 +34,14 @@ function App() {
     });
   };
 
+  const songEndHandler = async () => {
+    let currentIndex = playlist.findIndex((song) => song.id === currentSong.id);
+    await setCurrentSong(playlist[(currentIndex + 1) % playlist.length]);
+    if (isPlaying) songRef.current.play();
+  };
+
   return (
-    <div className="App">
+    <div className={`app ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
@@ -60,6 +66,7 @@ function App() {
       <audio
         onLoadedMetadata={timeUpdateHanler}
         onTimeUpdate={timeUpdateHanler}
+        onEnded={songEndHandler}
         ref={songRef}
         src={currentSong.audio}
       ></audio>
